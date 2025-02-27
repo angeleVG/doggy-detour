@@ -28,31 +28,47 @@ document.getElementById('start-button').onclick = function() {
   
   // Buddy object
   let buddy = {
-    positionX: 100, // Starting position within game-area
-    speed: 5 // Number of pixels Buddy moves per keypress
+    positionX: 100,
+    speed: 2,
+    width: 200 // Define Buddy's width for easier handling
   };
   
+  let leftInterval = null, rightInterval = null;
+
   // Arrow key movement
   window.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowLeft' && !leftInterval) {
+      // Start moving left if not already moving left
+      leftInterval = setInterval(moveBuddyLeft, 10);
+    } else if (event.key === 'ArrowRight' && !rightInterval) {
+      // Start moving right if not already moving right
+      rightInterval = setInterval(moveBuddyRight, 10);
+    }
+  });
+  
+  window.addEventListener('keyup', function(event) {
     if (event.key === 'ArrowLeft') {
-      moveBuddyLeft();
+      clearInterval(leftInterval);
+      leftInterval = null;
     } else if (event.key === 'ArrowRight') {
-      moveBuddyRight();
+      clearInterval(rightInterval);
+      rightInterval = null;
     }
   });
   
   function moveBuddyLeft() {
-    buddy.positionX = Math.max(0, buddy.positionX - buddy.speed); // Prevents moving out of bounds
+    buddy.positionX = Math.max(0, buddy.positionX - buddy.speed);
     updateBuddyPosition();
   }
   
   function moveBuddyRight() {
     const gameAreaWidth = document.getElementById('game-area').offsetWidth;
-    buddy.positionX = Math.min(gameAreaWidth - 200, buddy.positionX + buddy.speed); // Stay within bounds
+    buddy.positionX = Math.min(gameAreaWidth - buddy.width, buddy.positionX + buddy.speed);
     updateBuddyPosition();
   }
-  
+
   function updateBuddyPosition() {
     const buddyElement = document.getElementById('buddy');
     buddyElement.style.transform = `translateX(${buddy.positionX}px)`;
   }
+

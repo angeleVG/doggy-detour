@@ -24,19 +24,23 @@ body {
   }
 
   #game-area {
-    width: 800px; 
-    height: 600px; 
-    background-image: url('images/background_game.png');
+    width: 1000px; 
+    height: 500px; 
+    background-image: url('../images/background.png');
     background-size: cover;
+    background-position: center;
     position: relative;
     overflow: hidden; 
+    margin: auto;
   }
 
   #buddy {
     width: 200px;
     height: 200px;
     position: absolute;
-    background-image: url('images/dog.png');
+    background-image: url('../images/buddy.png');
     background-size: contain;
     background-repeat: no-repeat;
+    transform: translateX(-50%);
+    bottom: 0;
   }
