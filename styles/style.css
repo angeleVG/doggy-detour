@@ -1,0 +1,42 @@
+body {
+    padding: 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .screen {
+    display: none;
+    padding: 20px;
+  }
+  
+  .screen:not(.hidden) {
+    display: block;
+  }
+  
+  .screen.hidden {
+    display: none;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  #game-area {
+    width: 800px; 
+    height: 600px; 
+    background-image: url('images/background_game.png');
+    background-size: cover;
+    position: relative;
+    overflow: hidden; 
+  }
+
+  #buddy {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background-image: url('images/dog.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
