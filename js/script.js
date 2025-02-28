@@ -1,74 +1,122 @@
-// Event listener for Start button
+// Start and Restart Game Handlers
 document.getElementById('start-button').onclick = function() {
-    console.log("Start button clicked!"); // Verify the click event fires
-    document.getElementById('start-screen').classList.add('hidden'); // Hide the start screen
-    document.getElementById('game-screen').classList.remove('hidden'); // Show the game screen
-    startGame(); // Call to start game logic
-  };
-  
-  // Event listener for Restart button
-  document.getElementById('restart-button').onclick = function() {
-    console.log("Restart button clicked!"); // Log when restart is clicked
-    document.getElementById('end-screen').classList.add('hidden'); // Hide the end screen
-    document.getElementById('game-screen').classList.remove('hidden'); // Show the gameplay screen again
-    restartGame(); // Reset the game
-  };
-  
-  // Initialize game logic
-  function startGame() {
-    console.log("Game started!");
-    // Additional game starting logic here...
-  }
-  
-  // Reset game logic
-  function restartGame() {
-    console.log("Game reset!");
-    // Additional game resetting logic here...
-  }
-  
-  // Buddy object
-  let buddy = {
-    positionX: 100,
-    speed: 2,
-    width: 200 // Define Buddy's width for easier handling
-  };
-  
-  let leftInterval = null, rightInterval = null;
+  console.log("Start button clicked!");
+  document.getElementById('start-screen').classList.add('hidden');
+  document.getElementById('game-screen').classList.remove('hidden');
+  startGame();
+};
 
-  // Arrow key movement
-  window.addEventListener('keydown', function(event) {
-    if (event.key === 'ArrowLeft' && !leftInterval) {
-      // Start moving left if not already moving left
+document.getElementById('restart-button').onclick = function() {
+  console.log("Restart button clicked!");
+  document.getElementById('end-screen').classList.add('hidden');
+  document.getElementById('game-screen').classList.remove('hidden');
+  restartGame();
+};
+
+// Initialize Game Logic
+function startGame() {
+  console.log("Game started!");
+  startGameLoop(); // Start the game loop
+}
+
+function restartGame() {
+  console.log("Game reset!");
+  // Reset game status here (if needed)
+  startGameLoop();
+}
+
+// Buddy Object and Movement
+let buddy = {
+  positionX: 100,
+  speed: 2,
+  width: 200
+};
+
+let leftInterval = null, rightInterval = null;
+
+// Keydown Event Listeners for Movement
+window.addEventListener('keydown', function(event) {
+  if (event.key === 'ArrowLeft' && !leftInterval) {
       leftInterval = setInterval(moveBuddyLeft, 10);
-    } else if (event.key === 'ArrowRight' && !rightInterval) {
-      // Start moving right if not already moving right
+  } else if (event.key === 'ArrowRight' && !rightInterval) {
       rightInterval = setInterval(moveBuddyRight, 10);
-    }
-  });
-  
-  window.addEventListener('keyup', function(event) {
-    if (event.key === 'ArrowLeft') {
+  }
+});
+
+// Keyup Event Listeners for Clearing Movement Interval
+window.addEventListener('keyup', function(event) {
+  if (event.key === 'ArrowLeft') {
       clearInterval(leftInterval);
       leftInterval = null;
-    } else if (event.key === 'ArrowRight') {
+  } else if (event.key === 'ArrowRight') {
       clearInterval(rightInterval);
       rightInterval = null;
-    }
+  }
+});
+
+// Buddy Movement Functions
+function moveBuddyLeft() {
+  buddy.positionX = Math.max(0, buddy.positionX - buddy.speed);
+  updateBuddyPosition();
+}
+
+function moveBuddyRight() {
+  const gameAreaWidth = document.getElementById('game-area').offsetWidth;
+  buddy.positionX = Math.min(gameAreaWidth - buddy.width, buddy.positionX + buddy.speed);
+  updateBuddyPosition();
+}
+
+function updateBuddyPosition() {
+  const buddyElement = document.getElementById('buddy');
+  buddyElement.style.transform = `translateX(${buddy.positionX}px)`;
+}
+
+// Obstacle Movement
+function moveObstacles() {
+  const gameAreaHeight = document.getElementById('game-area').offsetHeight;
+  const obstacles = document.querySelectorAll('.obstacle');
+
+  obstacles.forEach(obstacle => {
+      let topPosition = parseFloat(obstacle.style.top) || 0;
+      topPosition += 2;  // Move down by 2 pixels
+
+      if (topPosition > gameAreaHeight) {
+          topPosition = -50; // Reset to above the visible area
+      }
+
+      obstacle.style.top = `${topPosition}px`;
   });
-  
-  function moveBuddyLeft() {
-    buddy.positionX = Math.max(0, buddy.positionX - buddy.speed);
-    updateBuddyPosition();
-  }
-  
-  function moveBuddyRight() {
-    const gameAreaWidth = document.getElementById('game-area').offsetWidth;
-    buddy.positionX = Math.min(gameAreaWidth - buddy.width, buddy.positionX + buddy.speed);
-    updateBuddyPosition();
-  }
+}
 
-  function updateBuddyPosition() {
-    const buddyElement = document.getElementById('buddy');
-    buddyElement.style.transform = `translateX(${buddy.positionX}px)`;
-  }
+// Collision Detection Functions
+function checkCollisions() {
+  const buddyElement = document.getElementById('buddy');
+  const obstacles = document.querySelectorAll('.obstacle');
 
+  obstacles.forEach(obstacleElement => {
+      if (didCollide(buddyElement, obstacleElement)) {
+          console.log('Collision detected!');
+          // Implement reaction to collision here
+      }
+  });
+}
+
+function didCollide(buddyElement, obstacleElement) {
+  const buddyRect = buddyElement.getBoundingClientRect();
+  const obstacleRect = obstacleElement.getBoundingClientRect();
+
+  return (
+      buddyRect.left < obstacleRect.right &&
+      buddyRect.right > obstacleRect.left &&
+      buddyRect.top < obstacleRect.bottom &&
+      buddyRect.bottom > obstacleRect.top
+  );
+}
+
+// Game Loop
+function startGameLoop() {
+  setInterval(() => {
+      moveObstacles();
+      checkCollisions();
+  }, 20);
+}

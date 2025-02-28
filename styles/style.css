@@ -44,3 +44,42 @@ body {
     transform: translateX(-50%);
     bottom: 0;
   }
+
+
+  #obstacle1 {
+    position: absolute;
+    background-image: url('../images/rock1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 0; /* Start at the top */
+    left: 50%; /* Start in middle */
+  }
+
+  #obstacle2 {
+    position: absolute;
+    background-image: url('../images/cat.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 0; /* Start at the top */
+    left: 50%; /* Start in middle */
+  }
+
+  #obstacle3 {
+    position: absolute;
+    background-image: url('../images/gum.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 0; /* Start at the top */
+    left: 50%; /* Start in middle */
+  }
+
+  .obstacle {
+    width: 50px;
+    height: 50px;
+    background-color: red; /* Temporary visible color */
+    position: absolute;
+    top: 0; 
+    left: 50%;
+    transform: translateX(-50%); /* Center the obstacles horizontally */
+    border: 2px dashed blue; /* For visibility */
+  }

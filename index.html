@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/style.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
     <title>Doggy Detour</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="start-screen" class="screen">
-        <h1>Doggy Detour</h1>
-        <p>Guide Buddy through the park while avoiding hazards!</p>
-        <p>use the left or right arrow to move Buddy</p>
-        <button id="start-button">Start Game</button>
-      </div>
+      <h1>Doggy Detour</h1>
+      <p>Guide Buddy through the park while avoiding hazards!</p>
+      <p>use the left or right arrow to move Buddy</p>
+      <button id="start-button">Start Game</button>
+    </div>
 
-      <div id="game-screen" class="screen hidden">
-        <!-- Elements for gameplay-->
-        <div id="game-area">
-            <div id="buddy"></div>
-        </div>
-        <div id="score-display">Score: 0</div>
+    <div id="game-screen" class="screen hidden">
+      <!-- Elements for gameplay-->
+      <div id="game-area">
+        <div id="buddy"></div>
+        <div class="obstacle" id="obstacle1"></div>
+        <div class="obstacle" id="obstacle2"></div>
+        <div class="obstacle" id="obstacle3"></div>
       </div>
-    
-      <div id="end-screen" class="screen hidden">
-        <h1>Game Over</h1>
-        <div>Your Score: <span id="final-score">0</span></div>
-        <button id="restart-button">Play Again</button>
-      </div>
+      <div id="score-display">Score: 0</div>
+    </div>
+
+    <div id="end-screen" class="screen hidden">
+      <h1>Game Over</h1>
+      <div>Your Score: <span id="final-score">0</span></div>
+      <button id="restart-button">Play Again</button>
+    </div>
     <script type="text/javascript" src="js/script.js"></script>
-</body>
+  </body>
 </html>
