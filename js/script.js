@@ -119,14 +119,34 @@ function didCollide(buddyElement, obstacleElement) {
   );
 }
 
-// Game Loop
+document.querySelectorAll('.obstacle').forEach(obstacle => {
+  obstacle.style.top = '-50px'; // Start above the visible screen
+});
+
 let gameLoop;
 
 function startGameLoop() {
+  if (gameLoop) clearInterval(gameLoop); // Clear any existing interval to prevent stacking
+
   gameLoop = setInterval(() => {
     moveObstacles();
     checkCollisions();
   }, 20);
+}
+
+function didCollide(buddyElement, obstacleElement) {
+  const buddyRect = buddyElement.getBoundingClientRect();
+  const obstacleRect = obstacleElement.getBoundingClientRect();
+
+  console.log(`Buddy Left: ${buddyRect.left}, Right: ${buddyRect.right}, Top: ${buddyRect.top}, Bottom: ${buddyRect.bottom}`);
+  console.log(`Obstacle Left: ${obstacleRect.left}, Right: ${obstacleRect.right}, Top: ${obstacleRect.top}, Bottom: ${obstacleRect.bottom}`);
+
+  return (
+      buddyRect.left < obstacleRect.right &&
+      buddyRect.right > obstacleRect.left &&
+      buddyRect.top < obstacleRect.bottom &&
+      buddyRect.bottom > obstacleRect.top
+  );
 }
 
 function restartGame() {
@@ -136,13 +156,25 @@ function restartGame() {
   buddy.positionX = 100;
   updateBuddyPosition();
 
-  // Optionally reset obstacle positions
+  // Reset obstacle positions
   const obstacles = document.querySelectorAll('.obstacle');
   obstacles.forEach(obstacle => {
-    obstacle.style.top = "-50px"; // Or whatever starting position is appropriate
+    obstacle.style.top = "-50px"; // Ensure starting above visible area even on restart
   });
 
   document.getElementById('end-screen').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
   startGameLoop();
 }
+
+// Initialize obstacle positions when the DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.obstacle').forEach(obstacle => {
+    obstacle.style.top = '-50px'; // Ensure this happens once and correctly
+  });
+}); 
+
+
+
+
+

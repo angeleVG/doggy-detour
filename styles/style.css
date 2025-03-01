@@ -41,14 +41,14 @@ body {
     background-image: url('../images/buddy.png');
     background-size: contain;
     background-repeat: no-repeat;
-    transform: translateX(-50%);
     bottom: 0;
+    transform: translateX(-50%);
   }
 
 
   #obstacle1 {
-    width: 180px;
-    height: 100px;
+    width: 110px;
+    height: 80px;
     position: absolute;
     background-image: url('../images/rock1.png');
     background-size: contain;
@@ -59,8 +59,8 @@ body {
   }
 
   #obstacle2 {
-    width: 110px;
-    height: 180px;
+    width: 100px;
+    height: 120px;
     position: absolute;
     background-image: url('../images/cat.png');
     background-size: contain;
@@ -71,8 +71,8 @@ body {
   }
 
   #obstacle3 {
-    width: 100px;
-    height: 150px;
+    width: 90px;
+    height: 110px;
     position: absolute;
     background-image: url('../images/gum.png');
     background-size: contain;
@@ -82,8 +82,8 @@ body {
   }
 
   #obstacle4 {
-    width: 100px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
     position: absolute;
     background-image: url('../images/poop.png');
     background-size: contain;
