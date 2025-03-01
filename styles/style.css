@@ -35,8 +35,8 @@ body {
   }
 
   #buddy {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 175px;
     position: absolute;
     background-image: url('../images/buddy.png');
     background-size: contain;
@@ -47,8 +47,8 @@ body {
 
 
   #obstacle1 {
-    width: 110px;
-    height: 80px;
+    width: 100px;
+    height: 60px;
     position: absolute;
     background-image: url('../images/rock1.png');
     background-size: contain;
@@ -59,8 +59,8 @@ body {
   }
 
   #obstacle2 {
-    width: 100px;
-    height: 120px;
+    width: 95px;
+    height: 110px;
     position: absolute;
     background-image: url('../images/cat.png');
     background-size: contain;
@@ -72,7 +72,7 @@ body {
 
   #obstacle3 {
     width: 90px;
-    height: 110px;
+    height: 95px;
     position: absolute;
     background-image: url('../images/gum.png');
     background-size: contain;
@@ -109,3 +109,6 @@ body {
     100% { left: 100%; }
   }
   
+  #buddy, .obstacle {
+    border: 2px solid red; /* Geeft een rode rand rond de objecten */
+  }

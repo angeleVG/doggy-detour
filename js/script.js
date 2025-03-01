@@ -1,56 +1,44 @@
 // Start and Restart Game Handlers
-document.getElementById('start-button').onclick = function() {
+document.getElementById('start-button').addEventListener('click', () => {
   console.log("Start button clicked!");
   document.getElementById('start-screen').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
   startGame();
-};
+});
 
-document.getElementById('restart-button').onclick = function() {
+document.getElementById('restart-button').addEventListener('click', () => {
   console.log("Restart button clicked!");
   document.getElementById('end-screen').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
   restartGame();
-};
-
-// Initialize Game Logic
-function startGame() {
-  console.log("Game started!");
-  startGameLoop(); // Start the game loop
-}
-
-function restartGame() {
-  console.log("Game reset!");
-  // Reset game status here (if needed)
-  startGameLoop();
-}
+});
 
 // Buddy Object and Movement
-let buddy = {
+const buddy = {
   positionX: 100,
-  speed: 2,
+  speed: 5,
   width: 200
 };
 
 let leftInterval = null, rightInterval = null;
 
 // Keydown Event Listeners for Movement
-window.addEventListener('keydown', function(event) {
+window.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft' && !leftInterval) {
-      leftInterval = setInterval(moveBuddyLeft, 10);
+    leftInterval = setInterval(moveBuddyLeft, 10);
   } else if (event.key === 'ArrowRight' && !rightInterval) {
-      rightInterval = setInterval(moveBuddyRight, 10);
+    rightInterval = setInterval(moveBuddyRight, 10);
   }
 });
 
 // Keyup Event Listeners for Clearing Movement Interval
-window.addEventListener('keyup', function(event) {
+window.addEventListener('keyup', (event) => {
   if (event.key === 'ArrowLeft') {
-      clearInterval(leftInterval);
-      leftInterval = null;
+    clearInterval(leftInterval);
+    leftInterval = null;
   } else if (event.key === 'ArrowRight') {
-      clearInterval(rightInterval);
-      rightInterval = null;
+    clearInterval(rightInterval);
+    rightInterval = null;
   }
 });
 
@@ -67,114 +55,89 @@ function moveBuddyRight() {
 }
 
 function updateBuddyPosition() {
-  const buddyElement = document.getElementById('buddy');
-  buddyElement.style.transform = `translateX(${buddy.positionX}px)`;
+  document.getElementById('buddy').style.transform = `translateX(${buddy.positionX}px)`;
 }
 
-// Obstacle Movement
+// Obstacle Movement & Collision Detection
 function moveObstacles() {
   const gameAreaHeight = document.getElementById('game-area').offsetHeight;
-  const obstacles = document.querySelectorAll('.obstacle');
+  document.querySelectorAll('.obstacle').forEach(obstacle => {
+    let topPosition = parseFloat(obstacle.style.top) || 0;
+    topPosition += 2;
 
-  obstacles.forEach(obstacle => {
-      let topPosition = parseFloat(obstacle.style.top) || 0;
-      topPosition += 2;  // Move down by 2 pixels
+    if (topPosition > gameAreaHeight) {
+      topPosition = -50;
+    }
 
-      if (topPosition > gameAreaHeight) {
-          topPosition = -50; // Reset to above the visible area
-      }
-
-      obstacle.style.top = `${topPosition}px`;
+    obstacle.style.top = `${topPosition}px`;
   });
 }
 
-// Collision Detection Functions
 function checkCollisions() {
   const buddyElement = document.getElementById('buddy');
-  const obstacles = document.querySelectorAll('.obstacle');
-
-  obstacles.forEach(obstacleElement => {
-      if (didCollide(buddyElement, obstacleElement)) {
-          console.log('Collision detected!');
-          endGame(); // Call endGame when a collision is detected
-      }
+  document.querySelectorAll('.obstacle').forEach(obstacleElement => {
+    if (didCollide(buddyElement, obstacleElement)) {
+      console.log('Collision detected!');
+      endGame();
+    }
   });
 }
+
+function didCollide(buddyElement, obstacleElement) {
+  const buddyRect = buddyElement.getBoundingClientRect();
+  const obstacleRect = obstacleElement.getBoundingClientRect();
+  const minOverlap = 20; // collides with slight overlap for a natural look
+
+  return (
+    buddyRect.left < obstacleRect.right - minOverlap &&
+    buddyRect.right > obstacleRect.left + minOverlap &&
+    buddyRect.top < obstacleRect.bottom - minOverlap &&
+    buddyRect.bottom > obstacleRect.top + minOverlap
+  );
+}
+
+// Game Loop using requestAnimationFrame
+let gameRunning = false;
+
+function gameLoop() {
+  if (!gameRunning) return;
+  moveObstacles();
+  checkCollisions();
+  requestAnimationFrame(gameLoop);
+}
+
+function startGame() {
+  console.log("Game started!");
+  gameRunning = true;
+  gameLoop();
+}
+
 function endGame() {
-  clearInterval(gameLoop); // Clear the game loop interval
+  gameRunning = false;
   document.getElementById('game-screen').classList.add('hidden');
   document.getElementById('end-screen').classList.remove('hidden');
-  console.log('Game Over!'); // Optionally log or alert game over
+  console.log('Game Over!');
 }
 
-function didCollide(buddyElement, obstacleElement) {
-  const buddyRect = buddyElement.getBoundingClientRect();
-  const obstacleRect = obstacleElement.getBoundingClientRect();
-
-  return (
-      buddyRect.left < obstacleRect.right &&
-      buddyRect.right > obstacleRect.left &&
-      buddyRect.top < obstacleRect.bottom &&
-      buddyRect.bottom > obstacleRect.top
-  );
-}
-
-document.querySelectorAll('.obstacle').forEach(obstacle => {
-  obstacle.style.top = '-50px'; // Start above the visible screen
-});
-
-let gameLoop;
-
-function startGameLoop() {
-  if (gameLoop) clearInterval(gameLoop); // Clear any existing interval to prevent stacking
-
-  gameLoop = setInterval(() => {
-    moveObstacles();
-    checkCollisions();
-  }, 20);
-}
-
-function didCollide(buddyElement, obstacleElement) {
-  const buddyRect = buddyElement.getBoundingClientRect();
-  const obstacleRect = obstacleElement.getBoundingClientRect();
-
-  console.log(`Buddy Left: ${buddyRect.left}, Right: ${buddyRect.right}, Top: ${buddyRect.top}, Bottom: ${buddyRect.bottom}`);
-  console.log(`Obstacle Left: ${obstacleRect.left}, Right: ${obstacleRect.right}, Top: ${obstacleRect.top}, Bottom: ${obstacleRect.bottom}`);
-
-  return (
-      buddyRect.left < obstacleRect.right &&
-      buddyRect.right > obstacleRect.left &&
-      buddyRect.top < obstacleRect.bottom &&
-      buddyRect.bottom > obstacleRect.top
-  );
-}
-
+// Reset Game State
 function restartGame() {
   console.log("Game reset!");
-
-  // Reset buddy position
   buddy.positionX = 100;
   updateBuddyPosition();
 
-  // Reset obstacle positions
-  const obstacles = document.querySelectorAll('.obstacle');
-  obstacles.forEach(obstacle => {
-    obstacle.style.top = "-50px"; // Ensure starting above visible area even on restart
+  document.querySelectorAll('.obstacle').forEach(obstacle => {
+    obstacle.style.top = "-50px";
   });
 
   document.getElementById('end-screen').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
-  startGameLoop();
+
+  startGame();
 }
 
-// Initialize obstacle positions when the DOM is ready
+// Initialize obstacle positions on DOM load
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.obstacle').forEach(obstacle => {
-    obstacle.style.top = '-50px'; // Ensure this happens once and correctly
+    obstacle.style.top = '-50px';
   });
-}); 
-
-
-
-
-
+});
