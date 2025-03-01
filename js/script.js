@@ -96,9 +96,15 @@ function checkCollisions() {
   obstacles.forEach(obstacleElement => {
       if (didCollide(buddyElement, obstacleElement)) {
           console.log('Collision detected!');
-          // Implement reaction to collision here
+          endGame(); // Call endGame when a collision is detected
       }
   });
+}
+function endGame() {
+  clearInterval(gameLoop); // Clear the game loop interval
+  document.getElementById('game-screen').classList.add('hidden');
+  document.getElementById('end-screen').classList.remove('hidden');
+  console.log('Game Over!'); // Optionally log or alert game over
 }
 
 function didCollide(buddyElement, obstacleElement) {
@@ -114,9 +120,29 @@ function didCollide(buddyElement, obstacleElement) {
 }
 
 // Game Loop
+let gameLoop;
+
 function startGameLoop() {
-  setInterval(() => {
-      moveObstacles();
-      checkCollisions();
+  gameLoop = setInterval(() => {
+    moveObstacles();
+    checkCollisions();
   }, 20);
+}
+
+function restartGame() {
+  console.log("Game reset!");
+
+  // Reset buddy position
+  buddy.positionX = 100;
+  updateBuddyPosition();
+
+  // Optionally reset obstacle positions
+  const obstacles = document.querySelectorAll('.obstacle');
+  obstacles.forEach(obstacle => {
+    obstacle.style.top = "-50px"; // Or whatever starting position is appropriate
+  });
+
+  document.getElementById('end-screen').classList.add('hidden');
+  document.getElementById('game-screen').classList.remove('hidden');
+  startGameLoop();
 }
