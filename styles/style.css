@@ -51,8 +51,8 @@ body {
     background-image: url('../images/rock1.png');
     background-size: contain;
     background-repeat: no-repeat;
-    top: 0; /* Start at the top */
-    left: 50%; /* Start in middle */
+    top: 0px; 
+    left: 30%;
   }
 
   #obstacle2 {
@@ -60,8 +60,8 @@ body {
     background-image: url('../images/cat.png');
     background-size: contain;
     background-repeat: no-repeat;
-    top: 0; /* Start at the top */
-    left: 50%; /* Start in middle */
+    top: 50px; 
+   left: 40%;
   }
 
   #obstacle3 {
@@ -69,8 +69,8 @@ body {
     background-image: url('../images/gum.png');
     background-size: contain;
     background-repeat: no-repeat;
-    top: 0; /* Start at the top */
-    left: 50%; /* Start in middle */
+    top: 100px; 
+    left: 50%;
   }
 
   .obstacle {
