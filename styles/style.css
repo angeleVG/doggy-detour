@@ -55,7 +55,7 @@ body {
     background-repeat: no-repeat;
     top: 0px; 
     left: 30%;
-    animation: moveDiagonal 8s infinite linear;
+    animation: moveDiagonal 6s infinite linear;
   }
 
   #obstacle2 {
@@ -67,7 +67,7 @@ body {
     background-repeat: no-repeat;
     top: 50px; 
    left: 40%;
-   animation: moveSideways 4s infinite linear;
+   animation: moveReverseDiagonal 10s infinite linear;
   }
 
   #obstacle3 {
@@ -77,8 +77,9 @@ body {
     background-image: url('../images/gum.png');
     background-size: contain;
     background-repeat: no-repeat;
-    top: 100px; 
+    top: 0px; 
     left: 50%;
+    animation: moveVertical 11s infinite linear; 
   }
 
   #obstacle4 {
@@ -99,16 +100,29 @@ body {
     transform: translateX(-50%); /* Center the obstacles horizontally */
   }
 
-  @keyframes moveDiagonal {
-    0% { top: 0; left: 0; }
-    100% { top: 100%; left: 100%; }
-  }
-  
-  @keyframes moveSideways {
-    0% { left: 0; }
-    100% { left: 100%; }
-  }
-  
+  /* Keyframes for Diagonal Movement */
+@keyframes moveDiagonal {
+  0% { top: 0; left: 30%; }
+  100% { top: 100%; left: 100%; }
+}
+
+/* Keyframes for Sideways Movement */
+@keyframes moveSideways {
+  0% { left: 10%; }  /* Start just off-screen */
+  100% { left: 100%; }  /* End just off-screen to the right */
+}
+
+/* Keyframes for Vertical Movement */
+@keyframes moveVertical {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+@keyframes moveReverseDiagonal {
+  0% { top: 0; left: 100%; }   /* Start at the right side */
+  100% { top: 100%; left: -10%; } /* End off-screen to the left */
+}
+
   #buddy, .obstacle {
     border: 2px solid red; /* Geeft een rode rand rond de objecten */
   }
