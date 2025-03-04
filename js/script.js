@@ -106,14 +106,32 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
+function updateScore() { //
+  if (!gameRunning || !startTime) return; // Ensure startTime is set
+  let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+  document.getElementById('time').textContent = `Time: ${elapsedTime}s`;
+}
+
+let scoreInterval; //
+
+// start game
 function startGame() {
   console.log("Game started!");
+  startTime = Date.now();
   gameRunning = true;
+
+  // Start updating score every second
+  if (scoreInterval) clearInterval(scoreInterval); // Clear any existing interval
+  scoreInterval = setInterval(updateScore, 1000);
+
   gameLoop();
+
 }
 
 function endGame() {
   gameRunning = false;
+  let elapsedTime = Math.floor((Date.now() - startTime) / 1000); //
+  document.getElementById('final-score').textContent = `You kept Buddy safe for ${elapsedTime}s!`; //
   document.getElementById('game-screen').classList.add('hidden');
   document.getElementById('end-screen').classList.remove('hidden');
   console.log('Game Over!');
@@ -122,6 +140,8 @@ function endGame() {
 // Reset Game State
 function restartGame() {
   console.log("Game reset!");
+  document.getElementById('time').textContent = 'Time: 0s'; // set time at 0
+  document.getElementById('final-score').textContent = '0'; //
   buddy.positionX = 100;
   updateBuddyPosition();
 
@@ -132,7 +152,10 @@ function restartGame() {
   document.getElementById('end-screen').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
 
+  gameRunning = false; // Stop old game loop
+  clearInterval(scoreInterval);  //
   startGame();
+  
 }
 
 // Initialize obstacle positions on DOM load
