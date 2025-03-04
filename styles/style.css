@@ -123,6 +123,15 @@ body {
   100% { top: 100%; left: -10%; } /* End off-screen to the left */
 }
 
+#previous-scores {
+  list-style-type: none;
+  padding: 0;
+}
+
   #buddy, .obstacle {
     border: 2px solid red; /* Geeft een rode rand rond de objecten */
+  }
+
+  li {
+margin: 15px;
   }
