@@ -111,8 +111,9 @@ class Game {
       this.gameRunning = false;  // Stops the game by setting it to not running
       let elapsedTime = Math.floor((Date.now() - this.startTime) / 1000); // Calculates the total time the game was running
       
-      this.scores.push(elapsedTime); // Adds the score to the list of previous scores
       this.displayScores(); // Displays the list of previous scores
+      this.scores.push(elapsedTime); // Adds the score to the end of the list of previous scores
+     
 
       document.getElementById('final-score').textContent = `You kept Buddy safe for ${elapsedTime} seconds!`; // Displays the final score on the screen
       document.getElementById('game-screen').classList.add('hidden'); // Hides the game screen

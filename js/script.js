@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }); 
 
-  // Bewegingen van de speler 
+  // movements of player
 
   let leftInterval = null; 
 
