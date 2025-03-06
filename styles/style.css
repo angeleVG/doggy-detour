@@ -128,15 +128,11 @@ body {
   padding: 0;
 }
 
-  #buddy, .obstacle {
-    border: 2px solid red; /* remove later */
-  }
-
   li {
 margin: 15px;
   }
 
-  /* control animation speed */
+  /* not functioning control animation speed */
 .obstacle.speed-up {
-  animation-duration: 2s; /* faster speed */
+  animation-duration: 6s; /* faster speed */
 }

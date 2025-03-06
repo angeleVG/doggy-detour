@@ -46,14 +46,6 @@ class Game {
           }
 
           obstacle.style.top = `${topPosition}px`; // Updates the obstacle's position on screen
-
-          // experiment - Increase speed over time by adjusting animation duration
-        let elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);  // Elapsed time in seconds
-         
-        // experiment - Adjust animation speed every few seconds
-         if (elapsedTime > 10) {  // Example: after 10 seconds
-            obstacle.classList.add('speed-up');  // Speed up the obstacle
-         }
       });
   }
 
@@ -103,6 +95,7 @@ class Game {
 
       this.gameLoop(); // Starts the game loop for continuous updates
   }
+
   displayScores() { 
     const scoresList = document.getElementById('previous-scores'); // Retrieves DOM element for displaying previous scores
     scoresList.innerHTML = ''; // Clears any existing scores displayed
@@ -110,7 +103,7 @@ class Game {
     this.scores.forEach((score, index) => { 
         const listItem = document.createElement('li');  // Creates a new list item for each previous score
 
-        listItem.textContent = `Round ${index + 1}: ${score} seconds`; // Sets the text content of the list item to show the score for that round
+        listItem.textContent = `🐶 ${score} seconds`; // Sets the text content of the list item to show the score for that round
         scoresList.appendChild(listItem); // add list item to the scores list
     });
 }
@@ -119,15 +112,35 @@ class Game {
       this.gameRunning = false;  // Stops the game by setting it to not running
       let elapsedTime = Math.floor((Date.now() - this.startTime) / 1000); // Calculates the total time the game was running
       
+
+    // experiment - Play the game over sound when the game ends
+    const gameOverAudio = document.getElementById('game-over-audio');
+    gameOverAudio.play();
+
       this.displayScores(); // Displays the list of previous scores
       this.scores.push(elapsedTime); // Adds the score to the end of the list of previous scores
      
+        // Sort the scores array in descending order
+  this.scores.sort((a, b) => b - a);
+
+  // Limit the scores array to top 5 scores
+  if (this.scores.length > 5) {
+    this.scores.splice(5);  // Removes all scores after the 5th index
+  }
 
       document.getElementById('final-score').textContent = `You kept Buddy safe for ${elapsedTime} seconds!`; // Displays the final score on the screen
       document.getElementById('game-screen').classList.add('hidden'); // Hides the game screen
       document.getElementById('end-screen').classList.remove('hidden'); // Shows the end screen
       console.log('Game Over!');  // Logs that the game is over
-  }
+
+          // Show scores list only if it's the second or more game over
+          const scoresHeading = document.querySelector('#end-screen h3');
+          if (this.scores.length >= 2) {  // Show after the second game over
+              scoresHeading.style.display = 'block';
+          } else {
+              scoresHeading.style.display = 'none';
+          }
+      }
 
   restartGame() {
       console.log("Game reset!"); // Logs that the game is being reset
@@ -155,3 +168,4 @@ class Game {
       });
   }
 }
+
