@@ -31,7 +31,7 @@ class Game {
       this.player = new Player(); // Creates a new player
       this.scoreInterval = null;  // set the interval variable for score updates
       this.startTime = null;  // set the start time variable to store the game start timestamp
-      this.scores = []; // create an empty array to hold the scores for previous rounds.
+      this.scores = []; // create an empty array to hold the scores for previous rounds
   }
 
   moveObstacles() {
@@ -46,6 +46,14 @@ class Game {
           }
 
           obstacle.style.top = `${topPosition}px`; // Updates the obstacle's position on screen
+
+          // experiment - Increase speed over time by adjusting animation duration
+        let elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);  // Elapsed time in seconds
+         
+        // experiment - Adjust animation speed every few seconds
+         if (elapsedTime > 10) {  // Example: after 10 seconds
+            obstacle.classList.add('speed-up');  // Speed up the obstacle
+         }
       });
   }
 

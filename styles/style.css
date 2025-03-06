@@ -129,9 +129,14 @@ body {
 }
 
   #buddy, .obstacle {
-    border: 2px solid red; /* Geeft een rode rand rond de objecten */
+    border: 2px solid red; /* remove later */
   }
 
   li {
 margin: 15px;
   }
+
+  /* control animation speed */
+.obstacle.speed-up {
+  animation-duration: 2s; /* faster speed */
+}
