@@ -13,17 +13,17 @@ Guide Buddy through a park while avoiding hazards. Use the left and right arrow 
     <li>Controls: Arrow keys for left and right movement </li>
 </ul>  
  <h2>MVP</h2>
-<ul>
-    <li>Implement basic controls using left and right arrow keys to navigate Buddy and dodge obstacles </li>
-<li>Start Screen: display the game title, instructions on how to play, and a start button to begin the game 
-    </li>
-<li>Gameplay Screen: present the active game environment where Buddy moves along the path </li>
-<li>Develop various moving obstacles advancing towards Buddy
-</li>
-<li>Design a scoring system that calcliates the player’s score based on how long Buddy avoids obstacles</li>
-<li>End Screen: display an end screen when the game concludes, showing the player’s final score based on the time Buddy survived. </li>
-<li>Display end scores of other players</li>
-</ul>
+<ol>
+<li>Simple game</li>
+<li>Using best practices</li>
+<li>Single page (Only one HTML file)</li>
+<li>Minimum 3 screens that you hide and show with DOM Manipulation</li>
+<li>Win/Lose Logic</li>
+<li>Basic HTML + CSS</li>
+<li>OOP (at least 2 classes are required)</li>
+<li>At least one commit per class day.</li>
+<li>Any bonus</li>
+</ol>
 <h2>Backlog</h2>
 <ul>
 <li>Introduce extra obstacles that vary in speed to increase the difficultness </li>

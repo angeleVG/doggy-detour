@@ -8,9 +8,9 @@
   </head>
   <body>
     <div id="start-screen" class="screen">
-      <h1>Doggy Detour</h1>
-      <p>Guide Buddy through the park while avoiding hazards!</p>
-      <p>use your left or right arrow keys to move Buddy</p>
+      <h1><img src="images/logo.png" alt="Doggy Detour"></h1>
+      <p>Guide Buddy through the park and steer clear of obstacles!</p>
+      <p>Use the left and right arrow keys to move</p>
       <button id="start-button">Start walking</button>
     </div>
 
@@ -21,16 +21,17 @@
         <div class="obstacle" id="obstacle1"></div>
         <div class="obstacle" id="obstacle2"></div>
         <div class="obstacle" id="obstacle3"></div>
+        <div class="obstacle" id="obstacle4"></div>
       </div>
       <div id="time">Time: 0s</div>
     </div>
     
     <div id="end-screen" class="screen hidden">
-      <h1>Game Over</h1>
+      <h1><img src="images/game-over.png" alt="Game over"></h1>
       <div><p><span id="final-score">0</span></p></div>
-      <h3>Your previous scores</h3>
+      <h3>Your best times so far</h3>
       <ul id="previous-scores"></ul>
-      <button id="restart-button">Try Again</button>
+      <button id="restart-button">Play Again</button>
     </div>
     <audio id="game-over-audio">
       <source src="audio/yoshi.mp3" type="audio/mpeg">

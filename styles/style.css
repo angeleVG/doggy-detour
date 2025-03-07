@@ -34,6 +34,24 @@ body {
     margin: auto;
   }
 
+  #start-screen h1 {
+    align-content: center;
+    background-image: url('images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: hidden; /* Verbergt de tekst */
+    display: block;
+  }
+
+  #end-screen h1 {
+    align-content: center;
+    background-image: url('images/game-over.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: hidden; /* Verbergt de tekst */
+    display: block;
+  }
+
   #buddy {
     width: 100px;
     height: 175px;
@@ -86,7 +104,7 @@ body {
     width: 80px;
     height: 80px;
     position: absolute;
-    background-image: url('../images/poop.png');
+    background-image: url('../images/skull.png');
     background-size: contain;
     background-repeat: no-repeat;
     top: 80px; 

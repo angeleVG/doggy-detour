@@ -128,7 +128,7 @@ class Game {
     this.scores.splice(5);  // Removes all scores after the 5th index
   }
 
-      document.getElementById('final-score').textContent = `You kept Buddy safe for ${elapsedTime} seconds!`; // Displays the final score on the screen
+      document.getElementById('final-score').textContent = `Great job! You kept Buddy safe for ${elapsedTime} seconds!`; // Displays the final score on the screen
       document.getElementById('game-screen').classList.add('hidden'); // Hides the game screen
       document.getElementById('end-screen').classList.remove('hidden'); // Shows the end screen
       console.log('Game Over!');  // Logs that the game is over
