@@ -21,8 +21,8 @@ Guide Buddy through a park while avoiding hazards. Use the left and right arrow 
 <li>Win/Lose Logic</li>
 <li>Basic HTML + CSS</li>
 <li>OOP (at least 2 classes are required)</li>
-<li>At least one commit per class day.</li>
-<li>Any bonus</li>
+<li>At least one commit per class day</li>
+<li>Bonus: audio when collision has occurred</li>
 </ol>
 <h2>Backlog</h2>
 <ul>
@@ -39,17 +39,35 @@ Guide Buddy through a park while avoiding hazards. Use the left and right arrow 
 </li>
 </ul>
 <h2>Data structure</h2>
-<p>List of classes and methods (to be added) </p>
-<h2>States y States Transitions</h2>
-<p>List of states (views) of your game (to be added)</p>
-<h2>Task</h2>
-<p>List of tasks in order of priority (to be added)</p>
+<h3>1. Player Class</h3>
+<p><strong>Description:</strong> Handles the player's movement within the game area.</p>
+    <p><strong>Methods:</strong></p>
+    <ul>
+        <li><code>moveLeft()</code></li>
+        <li><code>moveRight()</code>:</li>
+        <li><code>updatePosition()</code></li>
+           </ul>
+      <h3>2. Game Class</h3>
+    <p><strong>Description:</strong> Manages the core logic of the game, including the game state, player, obstacles, score, and interactions.</p>
+    <p><strong>Methods:</strong></p>
+    <ul>
+      <li><code>moveObstacles()</code></li>
+        <li><code>checkCollisions()</code></li>
+        <li><code>didCollide(buddyElement, obstacleElement)</code></li>
+        <li><code>gameLoop()</code></li>
+        <li><code>updateScore()</code></li>
+        <li><code>startGame()</code></li>
+        <li><code>displayScores()</code></li>
+        <li><code>endGame()</code></li>
+        <li><code>restartGame()</code></li>
+        <li><code>initializeObstacles()</code></li>
+    </ul>
 <h2>Links</h2>
 <ul>
     <li><a href="https://trello.com/b/oMJCODUN/project-1-the-game">Trello board</a></li>
-    <li>Slides Link: to be added </li>
+    <li><a href="https://docs.google.com/presentation/d/152ZueACfC_cCtdzoN6DTQVhHMFFJVhjhrLyc1oAarlo/edit?usp=sharing">Slides link</a></li>
     <li><a href="https://github.com/angeleVG/doggy-detour">Github repository</a></li>
-    <li>Deployment Link: to be added </li>
+    <li><a href="https://angelevg.github.io/doggy-detour">Deployment link</a></li>
 </ul>
 </body>
 </html>
